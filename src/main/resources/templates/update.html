@@ -8,17 +8,20 @@
 <body>
 <h2>현재는 이름만 변경할수있습니다!</h2> <br>
 <form action="/member/update" method="post">
-    <p>현재의 아이디 비밀번호 이름입니다.</p>
+
+    <p>현재의 이메일 아이디 비밀번호 이름입니다.</p>
     <p>정보수정하기를 누르면 로그인화면으로 돌아갑니다.</p>
-    <input type="hidden" th:value="${updateMember.id}" name="id"><br>
+    <input type="hidden" th:value="${updateMember.id}" name="id">
+
     이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail" readonly> <br>
     비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword" readonly> <br>
     이름: <input type="text" th:value="${updateMember.memberName}" name="memberName"> <br>
     <input type="submit" value="정보수정">
 </form>
-<form action="/member/withdraw" method="post">
-    <input type="submit" value="탈퇴하기">
 
+<form action="/member/remove" method="get">
+    <input type="submit" value="회원탈퇴">
 </form>
 </body>
+
 </html>

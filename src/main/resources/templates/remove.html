@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>회원탈퇴 확인창</title>
+</head>
+<body>
+<h2>회원을탈퇴하시겠습니까?</h2>
+
+
+<td>
+    <a th:href="@{|/member/delete/${member.id}|}">삭제</a>
+</td>
+<form action="/member/remove" method="post">
+    <input type="submit" value="회원탈퇴">
+
+</form>
+<form action="/member/home" method="get" >
+<input type="submit" value= "홈으로">
+</form>
+</body>
+</html>

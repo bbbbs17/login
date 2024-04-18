@@ -3,12 +3,15 @@ package Member.dailylogin.service;
 import Member.dailylogin.dto.MemberDTO;
 import Member.dailylogin.entity.MemberEntity;
 import Member.dailylogin.repository.MemberRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 
 @Service
@@ -17,11 +20,9 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     public void save(MemberDTO memberDTO) {
-        //1.dto -> entity 변환
-
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
-        //2. repository의 save 메서드 호출
+
     }
 
     public MemberDTO login(MemberDTO memberDTO) {
@@ -31,7 +32,7 @@ public class MemberService {
         if(byMemberEmail.isPresent()) {
             //조회 결과가 있다==해당 이메일을 가진 회원정보가 있음
             MemberEntity memberEntity = byMemberEmail.get(); //객체를 가져올수있음
-            if (memberEntity.getMeberPassword().equals(memberDTO.getMemberPassword())) {
+            if (memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
                 //비밀번호일치
                 //entity 객체를 dto 변환후 리턴 entity객체를 그대로 쓰는건 db위험 증가
                 MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
@@ -48,9 +49,12 @@ public class MemberService {
 
     public MemberDTO updateForm(String myEmail) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(myEmail);
+        //findByMemberEmail 인터페이스통해 jpa에서관리 myEmail받아오고 optional감싼 MemberEntity에 넣음
 
         if(optionalMemberEntity.isPresent()){
             return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+            //엔티티에서 .get()이용 optional풀고 toMemberDTO메서드통해 MemberDTO전달
+
 
         }else {
             return null;
@@ -83,10 +87,13 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
-    public void withdraw(String loginEmail) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(loginEmail);
-        if(optionalMemberEntity.isPresent()){
-            memberRepository.delete(optionalMemberEntity.get());
+
+    public String emailCheck(String memberEmail) {
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberEmail);
+        if(byMemberEmail.isPresent()) {
+            return null;
+        }else {
+            return "ok";
         }
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 <h2>HELLO Spring boot</h2>
-<a href="/member/save">회원가입</a> <br>
+
 <!--<a href="member/" class="hidden">회원목록<</a>-->
 <a href="/member/" class="hidden">회원목록</a> <br>
 
@@ -21,6 +21,9 @@
     비밀번호:<input type="password" name="memberPassword"> <br>
 
     <input type="submit" value="로그인">
+</form>
+<form action="/member/save" method="get">
+    <input type="submit" value="회원가입">
 </form>
 </body>
 </html>
