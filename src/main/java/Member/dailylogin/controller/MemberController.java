@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
 
@@ -145,7 +146,18 @@ public class MemberController {
     }
 
 
+
     //탈퇴하기 기능
+        @GetMapping("/member/remove")
+        public String deleteForm(HttpSession session, Model model){
+        String myEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByEmail(myEmail);
+        model.addAttribute("removeMember",memberDTO);
+        return "remove";
+        }
+
+        //홈으로 버튼(main페이지로 돌아감)
+   // @GetMapping("/member")
 
 
 }
